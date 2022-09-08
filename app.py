@@ -1,6 +1,10 @@
 from flask import Flask, render_template
 
+from article_data import Articles
+
 app = Flask(__name__)
+
+Articles = Articles()
 
 
 @app.route('/')
@@ -12,6 +16,15 @@ def hello_world():  # put application's code here
 def about():
 	return render_template('about.html')
 
+
+@app.route('/articles')
+def articles():
+	return render_template('articles.html', articles=Articles)
+
+
+@app.route('/articles/<string:id>/')
+def display_article(id):
+	return render_template('article.html', id=id)
 
 
 if __name__ == '__main__':
